@@ -27,7 +27,6 @@ class PostViewSet(ModelViewSet):
 class GroupViewSet(ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class CommentViewSet(ModelViewSet):
@@ -52,7 +51,10 @@ class CommentViewSet(ModelViewSet):
 
 
 class FollowViewSet(
-    GenericViewSet, mixins.CreateModelMixin, mixins.ListModelMixin
+    GenericViewSet, 
+    mixins.RetrieveModelMixin,
+    mixins.CreateModelMixin, 
+    mixins.ListModelMixin
 ):
     serializer_class = FollowSerializer
     filter_backends = (filters.SearchFilter,)
